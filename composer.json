@@ -1,0 +1,41 @@
+{
+    "name": "humble-guys/humble-wordpress-setup",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "HumbleWordPressSetup\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kim Larsson",
+            "email": "kim@humbleguys.se"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21",
+        "laravel/pint": "^0.2.3",
+        "phpstan/phpstan": "^1.8",
+        "10up/wp_mock": "0.4.2"
+    },
+    "scripts": {
+        "analyse": "./vendor/bin/phpstan analyse",
+        "lint": "./vendor/bin/pint -v",
+        "test": "./vendor/bin/pest"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "humbleCore": {
+            "providers": [
+                "HumbleWordPressSetup\\ServiceProvider"
+            ]
+        }
+    }
+}
