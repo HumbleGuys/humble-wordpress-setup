@@ -16,6 +16,7 @@ class ServiceProvider extends SupportServiceProvider
 
         Action::add('init', [Cleaner::class, 'removeActions']);
         Action::add('init', [Cleaner::class, 'removeFilters']);
+        Action::add('init', [Cleaner::class, 'removePostTypeSupports']);
         Action::add('wp_enqueue_scripts', [Cleaner::class, 'removeScripts'], 100);
     }
 }

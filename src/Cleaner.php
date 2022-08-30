@@ -38,4 +38,21 @@ class Cleaner
         wp_dequeue_style('wc-block-style');
         wp_dequeue_style('global-styles');
     }
+
+    public static function removePostTypeSupports()
+    {
+        remove_post_type_support('page', 'editor');
+        remove_post_type_support('page', 'author');
+        remove_post_type_support('page', 'thumbnail');
+        remove_post_type_support('page', 'excerpt');
+        remove_post_type_support('page', 'trackbacks');
+        remove_post_type_support('page', 'comments');
+
+        remove_post_type_support('post', 'editor');
+        remove_post_type_support('post', 'author');
+        remove_post_type_support('post', 'thumbnail');
+        remove_post_type_support('post', 'excerpt');
+        remove_post_type_support('post', 'trackbacks');
+        remove_post_type_support('post', 'comments');
+    }
 }
