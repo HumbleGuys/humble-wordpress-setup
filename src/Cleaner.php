@@ -29,6 +29,7 @@ class Cleaner
         Filter::remove('the_content_feed', 'wp_staticize_emoji');
         Filter::remove('comment_text_rss', 'wp_staticize_emoji');
         Filter::remove('oembed_dataparse', 'wp_filter_oembed_result', 10);
+        Filter::add('admin_footer_text', '__return_false');
     }
 
     public static function removeScripts()
@@ -153,10 +154,14 @@ class Cleaner
     }
 
     public static function removeDashboardWidgets() {
-        Action::add('wp_dashboard_setup', function() {
+        Action::add('wp_dashboard_setup', function () {
             global $wp_meta_boxes;
+            unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+            unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+            unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+            unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
 
-            unset($wp_meta_boxes['dashboard']);
+            Action::remove('welcome_panel', 'wp_welcome_panel');
         });
     }
 }
