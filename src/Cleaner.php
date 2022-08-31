@@ -128,4 +128,9 @@ class Cleaner
             }
         });
     }
+
+    public static function removePostTag()
+    {
+        register_taxonomy('post_tag', null);
+    }
 }
