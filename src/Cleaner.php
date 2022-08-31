@@ -133,4 +133,22 @@ class Cleaner
     {
         register_taxonomy('post_tag', null);
     }
+
+    public static function allowEditorsToEditPrivacyPage($caps, $cap, $user_id, $args)
+    {
+        if (! is_user_logged_in()) {
+            return $caps;
+        }
+
+        $user_meta = get_userdata($user_id);
+
+        if (array_intersect(['editor', 'administrator'], $user_meta->roles)) {
+            if ('manage_privacy_options' === $cap) {
+                $manage_name = is_multisite() ? 'manage_network' : 'manage_options';
+                $caps = array_diff($caps, [$manage_name]);
+            }
+        }
+
+        return $caps;
+    }
 }
