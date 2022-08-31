@@ -30,5 +30,7 @@ class ServiceProvider extends SupportServiceProvider
         Action::add('admin_init', [Cleaner::class, 'removeDashboardWidgets']);
 
         Action::add('map_meta_cap', [Cleaner::class, 'allowEditorsToEditPrivacyPage'], 1, 4);
+
+        Action::add('init', [RankMath::class, 'metaboxPriority']);
     }
 }
