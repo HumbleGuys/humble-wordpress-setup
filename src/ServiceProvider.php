@@ -23,7 +23,7 @@ class ServiceProvider extends SupportServiceProvider
         Action::add('init', [Cleaner::class, 'removeCustomizePage']);
         Action::add('init', [Cleaner::class, 'setMaxiumRevisions']);
         Action::add('init', [Cleaner::class, 'fixNameOnFileUploads']);
-        Action::add('init', [Cleaner::class, 'fixEditorCap']);
+        Action::add('admin_init', [Cleaner::class, 'fixEditorCap']);
         Action::add('init', [Cleaner::class, 'wrapEmbeds']);
         Action::add('init', [Cleaner::class, 'removeAuthorRoute']);
         Action::add('init', [Cleaner::class, 'removePostTag']);
