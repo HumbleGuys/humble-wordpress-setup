@@ -151,4 +151,12 @@ class Cleaner
 
         return $caps;
     }
+
+    public static function removeDashboardWidgets() {
+        Action::add('wp_dashboard_setup', function() {
+            global $wp_meta_boxes;
+
+            unset($wp_meta_boxes['dashboard']);
+        });
+    }
 }
