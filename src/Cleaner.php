@@ -55,4 +55,77 @@ class Cleaner
         remove_post_type_support('post', 'trackbacks');
         remove_post_type_support('post', 'comments');
     }
+
+    public static function removeComments(): void
+    {
+        Action::add('admin_menu', function () {
+            remove_menu_page('edit-comments.php');
+        });
+
+        Action::add('wp_before_admin_bar_render', function () {
+            global $wp_admin_bar;
+            $wp_admin_bar->remove_menu('comments');
+        });
+    }
+
+    public static function removeCustomizePage(): void
+    {
+        Action::add('admin_menu', function () {
+            global $submenu;
+            unset($submenu['themes.php'][6]);
+        });
+    }
+
+    public static function setMaxiumRevisions(): void
+    {
+        Filter::add('wp_revisions_to_keep', function () {
+            return 2;
+        }, 10, 2);
+    }
+
+    public static function fixNameOnFileUploads(): void
+    {
+        Filter::add('wp_handle_upload_prefilter', function ($file) {
+            $filenameArr = explode('.', $file['name']);
+            $extension = end($filenameArr);
+            $fileName = sanitize_title($file['name']);
+            $strLength = strlen($extension) + 1;
+            $fileName = substr($fileName, 0, -$strLength);
+            $file['name'] = $fileName.'.'.$extension;
+            $file['name'] = strtolower($file['name']);
+
+            return $file;
+        });
+    }
+
+    public static function fixEditorCap(): void
+    {
+        $role_object = get_role('editor');
+        $role_object->add_cap('edit_theme_options');
+
+        if (current_user_can('editor')) {
+            Action::add('admin_menu', function () {
+                remove_menu_page('tools.php');
+            });
+        }
+    }
+
+    public static function wrapEmbeds()
+    {
+        Filter::add('embed_oembed_html', function ($html) {
+            return '<span class="embedWrapper">'.$html.'</span>';
+        }, 10, 1);
+    }
+
+    public static function removeAuthorRoute()
+    {
+        Action::add('template_redirect', function () {
+            global $wp_query;
+
+            if (is_author()) {
+                $wp_query->set_404();
+                status_header(404);
+            }
+        });
+    }
 }

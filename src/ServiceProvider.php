@@ -18,5 +18,13 @@ class ServiceProvider extends SupportServiceProvider
         Action::add('init', [Cleaner::class, 'removeFilters']);
         Action::add('init', [Cleaner::class, 'removePostTypeSupports']);
         Action::add('wp_enqueue_scripts', [Cleaner::class, 'removeScripts'], 100);
+
+        Action::add('init', [Cleaner::class, 'removeComments']);
+        Action::add('init', [Cleaner::class, 'removeCustomizePage']);
+        Action::add('init', [Cleaner::class, 'setMaxiumRevisions']);
+        Action::add('init', [Cleaner::class, 'fixNameOnFileUploads']);
+        Action::add('init', [Cleaner::class, 'fixEditorCap']);
+        Action::add('init', [Cleaner::class, 'wrapEmbeds']);
+        Action::add('init', [Cleaner::class, 'removeAuthorRoute']);
     }
 }
