@@ -28,7 +28,7 @@ class ServiceProvider extends SupportServiceProvider
         Action::add('init', [Cleaner::class, 'removeAuthorRoute']);
         Action::add('init', [Cleaner::class, 'removePostTag']);
         Action::add('admin_init', [Cleaner::class, 'removeDashboardWidgets']);
-        Action::add('admin_init', [Cleaner::class, 'removeThemeFromMenu']);
+        Action::add('init', [Cleaner::class, 'removeThemeFromMenu']);
 
         Action::add('map_meta_cap', [Cleaner::class, 'allowEditorsToEditPrivacyPage'], 1, 4);
 
