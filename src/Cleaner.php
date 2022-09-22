@@ -164,4 +164,12 @@ class Cleaner
             Action::remove('welcome_panel', 'wp_welcome_panel');
         });
     }
+
+    public static function removeThemeFromMenu() {
+        Action::add('admin_menu', function() {
+            if (!current_user_can('manage_options')) {
+                remove_submenu_page('themes.php', 'themes.php');
+            }
+        });
+    }
 }
