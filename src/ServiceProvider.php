@@ -33,5 +33,9 @@ class ServiceProvider extends SupportServiceProvider
         Action::add('map_meta_cap', [Cleaner::class, 'allowEditorsToEditPrivacyPage'], 1, 4);
 
         Action::add('init', [RankMath::class, 'metaboxPriority']);
+
+        if (config('wordpress.hide_posts')) {
+            Cleaner::removePosts();
+        }
     }
 }

@@ -57,6 +57,18 @@ class Cleaner
         remove_post_type_support('post', 'comments');
     }
 
+    public static function removePosts(): void
+    {
+        Action::add('admin_menu', function () {
+            remove_menu_page('edit.php');
+        });
+
+        Action::add('wp_before_admin_bar_render', function () {
+            global $wp_admin_bar;
+            $wp_admin_bar->remove_menu('new-post');
+        });
+    }
+
     public static function removeComments(): void
     {
         Action::add('admin_menu', function () {
@@ -153,7 +165,8 @@ class Cleaner
         return $caps;
     }
 
-    public static function removeDashboardWidgets() {
+    public static function removeDashboardWidgets()
+    {
         Action::add('wp_dashboard_setup', function () {
             global $wp_meta_boxes;
             unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
@@ -165,9 +178,10 @@ class Cleaner
         });
     }
 
-    public static function removeThemeFromMenu() {
-        Action::add('admin_menu', function() {
-            if (!current_user_can('manage_options')) {
+    public static function removeThemeFromMenu()
+    {
+        Action::add('admin_menu', function () {
+            if (! current_user_can('manage_options')) {
                 remove_submenu_page('themes.php', 'themes.php');
             }
         });
