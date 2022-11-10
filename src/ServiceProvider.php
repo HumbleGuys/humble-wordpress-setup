@@ -34,6 +34,8 @@ class ServiceProvider extends SupportServiceProvider
 
         Action::add('init', [RankMath::class, 'metaboxPriority']);
 
+        Robots::init();
+
         if (config('wordpress.hide_posts')) {
             Cleaner::removePosts();
         }
