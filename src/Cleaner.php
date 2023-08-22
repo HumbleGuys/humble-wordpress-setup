@@ -69,6 +69,11 @@ class Cleaner
         });
     }
 
+    public static function removeCategories(): void
+    {
+        unregister_taxonomy_for_object_type('category', 'post');
+    }
+
     public static function removeComments(): void
     {
         Action::add('admin_menu', function () {

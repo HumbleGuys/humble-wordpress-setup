@@ -39,5 +39,9 @@ class ServiceProvider extends SupportServiceProvider
         if (config('wordpress.hide_posts')) {
             Cleaner::removePosts();
         }
+
+        if (config('wordpress.hide_categories')) {
+            Action::add('init', [Cleaner::class, 'removeCategories']);
+        }
     }
 }
